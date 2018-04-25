@@ -1,0 +1,155 @@
+{
+  "data": [
+    {
+    "num":"1",
+    "title": "问卷1",
+    "desc": "体重问卷",
+    "questionList": [{
+      "type": "textarea",
+      "title": "文本题",
+      "label": "今日体重多少",
+      "num":"1",
+      "value":""
+    },
+      {
+      "type": "radio",
+      "title":"单选题",
+      "label": "今日吃饭了么",
+      "num":"2",
+      "options": [{
+        "label": "吃了",
+        "value": true
+      }, {
+          "label": "没吃",
+          "value": false
+        }]
+      },
+      {
+        "type": "radio",
+        "title":"单选题",
+        "label": "今日吃饭了么",
+        "num":"3",
+        "options": [{
+          "label": "吃了",
+          "value": true
+        },
+          {
+            "label": "没吃",
+            "value": false
+          }]
+      }]
+    },
+    {
+      "num":"2",
+      "title": "问卷2",
+      "desc": "饮水问卷",
+      "questionList": [{
+        "type": "textarea",
+        "title": "文本题",
+        "label": "今天喝了多少水",
+        "num":"1",
+        "value":""},
+        {
+          "type": "checkbox",
+          "label": "今天喝的什么饮品",
+          "title":"多选题",
+          "num":"2",
+        "options": [{
+          "label": "水",
+          "value": "water"
+        },
+          {
+            "label": "水2",
+            "value": "water2"
+          },
+          {
+          "label": "牛奶",
+          "value": "milk"
+        },
+          {
+            "label": "果汁",
+            "value": "juice"
+          }]
+      }]
+    },
+    {
+      "num":"3",
+      "title": "问卷3",
+      "desc": "体重问卷3",
+      "questionList": [{
+        "type": "textarea",
+        "title": "文本题",
+        "label": "今日体重多少",
+        "num":"1",
+        "value":""
+      },
+        {
+          "type": "radio",
+          "title":"单选题",
+          "label": "今日吃饭了么",
+          "num":"2",
+          "options": [{
+            "label": "吃了",
+            "value": true
+          }, {
+            "label": "没吃",
+            "value": false
+          }]
+        },
+        {
+          "type": "radio",
+          "title":"单选题",
+          "label": "今日吃饭了么",
+          "num":"3",
+          "options": [{
+            "label": "吃了",
+            "value": true
+          },
+            {
+              "label": "没吃",
+              "value": false
+            }]
+        }]
+    },
+    {
+      "num":"4",
+      "title": "问卷4",
+      "desc": "体重问卷4",
+      "questionList": [{
+        "type": "textarea",
+        "title": "文本题",
+        "label": "今日体重多少",
+        "num":"1",
+        "value":""
+      },
+        {
+          "type": "radio",
+          "title":"单选题",
+          "label": "今日吃饭了么",
+          "num":"2",
+          "options": [{
+            "label": "吃了",
+            "value": true
+          }, {
+            "label": "没吃",
+            "value": false
+          }]
+        },
+        {
+          "type": "radio",
+          "title":"单选题",
+          "label": "今日吃饭了么",
+          "num":"3",
+          "options": [{
+            "label": "吃了",
+            "value": true
+          },
+            {
+              "label": "没吃",
+              "value": false
+            }]
+        }]
+    }
+
+  ]
+}
