@@ -1,33 +1,15 @@
 <template>
   <div class="qs-list">
     <div class="fill-container">
-    <ul v-if="Questionlist.length == 0 ? false : true">
-      <li></li>
-      <li>问卷列表</li>
-    </ul>
-      <div style="margin:1.5rem 0">
-      <el-row>
-        <el-col >
-          <p style="margin-bottom: 1rem;">今日体重(kg)</p><el-input v-model="weightvalue" placeholder="请输入内容"></el-input>
-
-          <el-button @click="submitweight" >提交</el-button>
-
-        </el-col>
-      </el-row>
-      </div>
-      <div style="margin:1rem 0">
+      <ul v-if="Questionlist.length == 0 ? false : true">
+        <li></li>
+        <li>问卷列表</li>
+      </ul>
+      <template v-for="item in Questionlist">
         <el-row>
-          <el-col >
-            <p style="margin-bottom: 1rem;">今日饮水量(l)</p><el-input v-model="watervalue" placeholder="请输入内容"></el-input>
-            <el-button @click="submitwater" >提交</el-button>
-          </el-col>
+          <el-button  class="questionlistbutton" @click="$router.push({name: 'QSfill', params: {num: item.num}})">{{item.desc}}</el-button>
         </el-row>
-      </div>
-    <template v-for="item in Questionlist">
-      <el-row>
-        <el-button  class="questionlistbutton" @click="$router.push({name: 'QSfill', params: {num: item.num}})">{{item.desc}}</el-button>
-      </el-row>
-    </template>
+      </template>
     </div>
   </div>
 </template>

@@ -171,7 +171,7 @@
           method: 'get',
         })
           .then( (response) => {
-            this.Qslist = response.data.data;
+            this.Qslist = response.data.rule;
             this.fetchData();
           })
           .catch(function (error) {
@@ -209,6 +209,17 @@
               }
         } )
       },
+      addQuestionItem(){
+        //加入问卷时间戳
+        var questionContent = new Object();
+        var questionDate = new Date();
+        questionContent.time=(questionDate.getMonth()+1)+'月'+questionDate.getDate()+'日'
+        //加入问卷号
+        questionContent.qsnum=this.qsItem.num
+        this.requiredItem[0]=questionContent
+        console.log(questionContent)
+      },
+
       handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
@@ -218,6 +229,7 @@
       },
 
       submit(){
+        this.addQuestionItem()
         this.final=JSON.stringify(this.requiredItem)
         this.submitok = this.validate()
         if (this.submitok) {

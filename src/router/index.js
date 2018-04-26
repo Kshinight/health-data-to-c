@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import qsFill from '@/components/QSfill'
-import qslist from '@/components/QSlist'
-import qsData from '@/components/QSdata'
-import test from '@/components/test'
+import QSfill from '@/components/QSfill'
+import QSlist from '@/components/QSlist'
+import QSdata from '@/components/QSdata'
+import QSvaluelist from '@/components/QSvaluelist'
 Vue.use(Router)
 
 export default new Router({
@@ -11,23 +11,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'qslist',
-      component: qslist
+      name: 'QSlist',
+      component: QSlist
     },
-    // {
-    //   path: '/',
-    //   name: 'test',
-    //   component: test
-    // },
     {
       path: '/fill/:num',
-      name: 'qsFill',
-      component: qsFill
+      name: 'QSfill',
+      component: QSfill
+    },
+    {
+      path: '/data/:num',
+      name: 'QSdata',
+      component: QSdata
     },
     {
       path: '/data',
-      name: 'qsData',
-      component: qsData
-    },
+      name: 'QSvaluelist',
+      component: QSvaluelist
+    }
   ]
 })
