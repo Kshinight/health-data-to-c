@@ -1,13 +1,13 @@
 <template>
   <div class="qs-list">
     <div class="fill-container">
-      <div class="content-item">
+      <div class="content-item1">
         <div id="myweightChart"></div>
       </div>
-      <div class="content-item">
+      <div class="content-item1">
         <div id="mywaterChart"></div>
       </div>
-        <li>希望查看哪个问卷的以往数据填写信息</li>
+        <li>查看以往数据填写信息</li>
         <template v-for="item in Questionlist">
           <el-row>
              <el-button type="success" class="questionlistbutton" @click="$router.push({name: 'QSdata', params: {num: item.num}})">{{item.desc}}</el-button>
@@ -30,6 +30,8 @@
         Questionlist:[],
         waValue:[],
         wValue:[],
+        wsortwValue:[],
+        wasortwValue:[],
       }
     },
     methods: {
@@ -54,14 +56,22 @@
         let myweightChart = this.$echarts.init(document.getElementById('myweightChart'))
         // 绘制图表
         myweightChart.setOption({
-          title: { text: '七日体重变化(kg)' },
+          title: { text: '七日体重变化(kg)',
+          textstyle:{
+            fontFamily:'Microsoft YaHei'
+          }},
           tooltip: {},
           xAxis: {
-
+            nameTextStyle:{
+              fontFamily:'Microsoft YaHei'
+            },
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
           },
           yAxis: {
+            nameTextStyle:{
+              fontFamily:'Microsoft YaHei'
+            },
             min:40,
             type: 'value'
           },
@@ -77,11 +87,25 @@
         })
           .then( (response) => {
             this.wValue = JSON.parse(response.data.weightvalue);
+            this.wsortwValue = JSON.parse(response.data.weightvalue);
+            this.wValue.sort(function (x, y) {
+              if (x < y) {
+                return -1;
+              }
+              if (x > y) {
+                return 1;
+              }
+              return 0;
+            });
             myweightChart.setOption({
               series: [{
-                data: this.wValue,
+                data: this.wsortwValue,
                 type: 'line'
               }],
+              yAxis:{
+//                min:this.wValue[0]-5,
+//                max:this.wValue[-1]+5
+              }
             });
 
           })
@@ -97,7 +121,7 @@
           xAxis: {
 
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
           },
           yAxis: {
             min:2,
@@ -140,7 +164,7 @@
 
 <style>
   .fill-container {
-    margin: 10%;
+    margin: 0 10% 10% 10%;
     padding: 10%;
     color: #666;
     background-color: #fff;
@@ -165,16 +189,16 @@
     background-color: #14A99F;
     border-color:#14A99F;
   }
-  .content-item {
+  .content-item1 {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 1.5rem;
+    padding: .5rem;
     margin-bottom: 2rem;
     border: .2rem solid #aaa;}
-  .content-item p {
+  .content-item1 p {
     margin-bottom: 1rem;
   }
   .item-left {
@@ -194,10 +218,10 @@
   }
   #myweightChart{
     width: 100%;
-    height: 20rem
+    height: 23rem
   }
   #mywaterChart{
     width: 100%;
-    height: 20rem
+    height: 23rem
   }
 </style>

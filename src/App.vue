@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <QS-header></QS-header>
+    <bground></bground>
     <router-view></router-view>
 
   </div>
@@ -8,10 +9,13 @@
 
 <script>
   import QSHeader from './components/QSheader.vue'
+  import bground from './components/bground.vue'
   export default {
     name: 'app',
     components: {
+      bground,
       QSHeader
+
     }
   }
 </script>
@@ -33,7 +37,7 @@
     height: 100%;
     overflow: auto;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #efefef;
+    background: linear-gradient(#5fcaff,#ddf4ff);
   }
 
 </style>

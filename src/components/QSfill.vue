@@ -3,6 +3,7 @@
     <div class="fill-container">
       <div class="fill" v-if="!isError">
         <router-link to="/" tag="span" class="back">&lt; 返回</router-link>
+        <br>
         <h2>{{qsItem.desc}}</h2>
         <!--问卷内容渲染-->
         <div class="content">
@@ -63,9 +64,9 @@
           :before-close="handleClose">
           <span>{{info}}</span>
           <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          </span>
         </el-dialog>
       </div>
       <!--提交-->
@@ -82,14 +83,14 @@
 </template>
 <style>
   .fill-container {
-    margin: 10%;
+    margin: 0 10% 10% 10%;
     padding: 10%;
     color: #666;
     background-color: #fff;
     border-radius: .4rem;
     box-shadow: 0 0 1rem #aaa;}
   h2 {
-    margin-bottom: 3rem;
+    margin: 3rem 0;
     text-align: center;
     font-size: 2rem;
     color: #555;
@@ -167,7 +168,7 @@
     methods: {
       getData(){
         this.$http({
-          url: 'http://localhost:8080/static/questionaire.json',
+          url: 'http://localhost:8080/static/questionValue.json',
           method: 'get',
         })
           .then( (response) => {
@@ -238,9 +239,9 @@
         setTimeout(() => {
           this.dialogVisible = false
         }, 1500)
-//        setTimeout(() => {
-//          this.$router.push({path: '/'})
-//        }, 2000)
+        setTimeout(() => {
+          this.$router.push({path: '/'})
+        }, 2000)
       }
       else{
           this.dialogVisible = true

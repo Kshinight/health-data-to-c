@@ -16,11 +16,12 @@
               <el-row>
                 <el-col >
                   <el-input
-                    v-model="asvaluelist[item.num]"
+                    v-model="asvaluelist[item.num-1]"
                     :autosize="{ minRows: 1, maxRows: 4}"
                     class="question-input"
                     :type="item.type"
-                    placeholder="请输入内容">
+                    placeholder="请输入内容"
+                    :disabled="true">
                   </el-input>
                 </el-col>
               </el-row>
@@ -28,7 +29,7 @@
             <div v-if="item.type === 'radio'" class="question-content-wrap">
               <el-row>
                 <el-col>
-                  <el-radio-group v-model="asvaluelist[item.num]">
+                  <el-radio-group v-model="asvaluelist[item.num-1]">
                     <div class="radiolist">
                       <el-radio v-for="qradio in item.options"
                                 :label="qradio.value"
@@ -42,7 +43,7 @@
               </el-row>
             </div>
             <div v-if="item.type === 'checkbox'" class="question-content-wrap">
-              <el-checkbox-group v-model="asvaluelist[item.num]">
+              <el-checkbox-group v-model="asvaluelist[item.num-1]">
                 <div class="checkboxlist">
                   <el-checkbox v-for="qradio in item.options"
                                :label="qradio.value"
@@ -66,13 +67,14 @@
 
 <style>
   .fill-container {
-    margin: 10%;
+    margin: 0 10% 10% 10%;
     padding: 10%;
     color: #666;
     background-color: #fff;
     border-radius: .4rem;
     box-shadow: 0 0 1rem #aaa;}
   h2 {
+    margin: 3rem 0;
     margin-bottom: 3rem;
     text-align: center;
     font-size: 2rem;
@@ -142,9 +144,9 @@
         qsItem : [],
         Qslist : [],
         isError : false,
-        requiredItem : [],
         qstime:"",
-        asvaluelist:[]
+        asvaluelist:[],
+        routernum:""
       }
     },
     methods: {
@@ -155,9 +157,10 @@
           method: 'get',
         })
           .then( (response) => {
-            this.Aslist = response.data.value;
+            this.routernum = this.$route.params.num -1;
+            this.Aslist = response.data.value[this.routernum];
             this.Qslist = response.data.rule;
-            console.log(this.Aslist.qsValue.qsItemvalue)
+            console.log(this.Aslist.qsValue[0].qsItemvalue)
             this.getValue();
             this.fetchData();
           })
@@ -166,9 +169,9 @@
           });
       },
       fetchData() {
-        let i = this.$route.params.num;
+        this.routernum = this.$route.params.num -1;
         if(this.Qslist.length != 0){
-          this.qsItem = this.Qslist[i-1]
+          this.qsItem = this.Qslist[this.routernum]
 
         }
         else{
@@ -176,8 +179,8 @@
         }
       },
       getValue(){
-        this.qstime = this.Aslist.qsValue.time;
-        this.asvaluelist = this.Aslist.qsValue.qsItemvalue;
+        this.qstime = this.Aslist.qsValue[0].time;
+        this.asvaluelist = this.Aslist.qsValue[0].qsItemvalue;
       },
       getMsg(item) {
         let msg = ''
