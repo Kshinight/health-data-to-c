@@ -10,7 +10,7 @@
         <li>查看以往数据填写信息</li>
         <template v-for="item in Questionlist">
           <el-row>
-             <el-button type="success" class="questionlistbutton" @click="$router.push({name: 'QSdata', params: {num: item.num}})">{{item.desc}}</el-button>
+             <el-button type="success" class="questionlistbutton" @click="$router.push({name: 'QSdata', params: {num: item.id}})">{{item.title}}</el-button>
           </el-row>
         </template>
 

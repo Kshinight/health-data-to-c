@@ -27,7 +27,7 @@
       </div>
     <template v-for="item in Questionlist">
       <el-row>
-        <el-button  class="questionlistbutton" @click="$router.push({name: 'QSfill', params: {num: item.num}})">{{item.desc}}</el-button>
+        <el-button  class="questionlistbutton" @click="$router.push({name: 'QSfill', params: {num: item.id}})">{{item.title}}</el-button>
       </el-row>
     </template>
       <el-dialog
@@ -75,7 +75,8 @@
       },
       getData(){
         this.$http({
-          url: 'http://localhost:8080/static/questionValue.json',
+//          url: 'http://homja.top/Questionnaire/index.php/api/my/get_question',
+          url:'http://localhost:8080/static/questionValue.json',
           method: 'get',
         })
           .then( (response) => {
@@ -103,7 +104,7 @@
       submitwater(){
         if (this.watervalue != "") {
           this.dialogVisible = true
-          this.info = '提交体重数据成功！'
+          this.info = '提交饮水数据成功！'
           setTimeout(() => {
             this.dialogVisible = false
           }, 1500)

@@ -2,13 +2,13 @@
   <div>
     <div class="fill-container">
       <div class="fill" v-if="!isError">
-        <router-link to="/" tag="span" class="back">&lt; 返回</router-link>
+        <router-link to="/data" tag="span" class="back">&lt; 返回</router-link>
         <h2>{{qstime}}&nbsp;填写内容</h2>
         <!--问卷内容渲染-->
         <div class="content">
-          <div class="content-item" v-for="item in qsItem.questionList">
+          <div class="content-item" v-for="item in qsItem.question_list">
             <p class="qs-title">
-              {{item.num}}&nbsp;{{item.label}}&nbsp;{{getMsg(item)}}
+              {{item.id}}&nbsp;{{item.label}}&nbsp;{{getMsg(item)}}
             </p>
             <br>
             <!--数据渲染-->
@@ -16,7 +16,7 @@
               <el-row>
                 <el-col >
                   <el-input
-                    v-model="asvaluelist[item.num-1]"
+                    v-model="asvaluelist[item.id-1]"
                     :autosize="{ minRows: 1, maxRows: 4}"
                     class="question-input"
                     :type="item.type"
@@ -29,7 +29,7 @@
             <div v-if="item.type === 'radio'" class="question-content-wrap">
               <el-row>
                 <el-col>
-                  <el-radio-group v-model="asvaluelist[item.num-1]">
+                  <el-radio-group v-model="asvaluelist[item.id-1]">
                     <div class="radiolist">
                       <el-radio v-for="qradio in item.options"
                                 :label="qradio.value"
@@ -43,7 +43,7 @@
               </el-row>
             </div>
             <div v-if="item.type === 'checkbox'" class="question-content-wrap">
-              <el-checkbox-group v-model="asvaluelist[item.num-1]">
+              <el-checkbox-group v-model="asvaluelist[item.id-1]">
                 <div class="checkboxlist">
                   <el-checkbox v-for="qradio in item.options"
                                :label="qradio.value"

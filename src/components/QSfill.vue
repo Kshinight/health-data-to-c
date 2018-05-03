@@ -4,12 +4,12 @@
       <div class="fill" v-if="!isError">
         <router-link to="/" tag="span" class="back">&lt; 返回</router-link>
         <br>
-        <h2>{{qsItem.desc}}</h2>
+        <h2>{{qsItem.title}}</h2>
         <!--问卷内容渲染-->
         <div class="content">
-          <div class="content-item" v-for="item in qsItem.questionList">
+          <div class="content-item" v-for="item in qsItem.question_list">
             <p class="qs-title">
-              {{item.num}}&nbsp;{{item.label}}&nbsp;{{getMsg(item)}}
+              {{item.id}}&nbsp;{{item.label}}&nbsp;{{getMsg(item)}}
             </p>
             <br>
             <!--数据渲染-->
@@ -17,7 +17,7 @@
               <el-row>
                 <el-col >
                   <el-input
-                    v-model="requiredItem[item.num]"
+                    v-model="requiredItem[item.id]"
                     :autosize="{ minRows: 1, maxRows: 4}"
                     class="question-input"
                     :type="item.type"
@@ -29,7 +29,7 @@
             <div v-if="item.type === 'radio'" class="question-content-wrap">
               <el-row>
                 <el-col>
-                  <el-radio-group v-model="requiredItem[item.num]">
+                  <el-radio-group v-model="requiredItem[item.id]">
                     <div class="radiolist">
                     <el-radio v-for="qradio in item.options"
                               :label="qradio.value"
@@ -42,7 +42,7 @@
               </el-row>
             </div>
             <div v-if="item.type === 'checkbox'" class="question-content-wrap">
-              <el-checkbox-group v-model="requiredItem[item.num]">
+              <el-checkbox-group v-model="requiredItem[item.id]">
                 <div class="checkboxlist">
                   <el-checkbox v-for="qradio in item.options"
                              :label="qradio.value"
@@ -201,12 +201,12 @@
         return  `${msg} `
       },
       getRequiredItem() {
-        this.qsItem.questionList.forEach( item => {
+        this.qsItem.question_list.forEach( item => {
               if (item.type === 'checkbox') {
-                this.requiredItem[item.num] = [];
+                this.requiredItem[item.id] = [];
               }
               else{
-                this.requiredItem[item.num] = "";
+                this.requiredItem[item.id] = "";
               }
         } )
       },
@@ -214,11 +214,10 @@
         //加入问卷时间戳
         var questionContent = new Object();
         var questionDate = new Date();
-        questionContent.time=(questionDate.getMonth()+1)+'月'+questionDate.getDate()+'日'
+        questionContent.date=questionDate.getFullYear()+"-"+(questionDate.getMonth()+1)+'-'+questionDate.getDate()
         //加入问卷号
-        questionContent.qsnum=this.qsItem.num
+          questionContent.r_id=parseInt(this.qsItem.id)
         this.requiredItem[0]=questionContent
-        console.log(questionContent)
       },
 
       handleClose(done) {
@@ -228,14 +227,43 @@
           })
           .catch(_ => {});
       },
-
+      getfinal(){
+          this.final.data = [];
+        for(let i = 1;i<this.requiredItem.length;i++){
+          this.final.data[i-1]={q_id:i,value:this.requiredItem[i]}
+        }
+        this.final.date = this.requiredItem[0].date;
+        this.final.r_id = this.requiredItem[0].r_id;
+        this.final.u_id = Math.floor(Math.random()*5+1)
+        this.final.data=JSON.stringify(this.final.data)
+      },
+     post(data1){
+        console.log("post")
+       var params = new URLSearchParams()
+       params.append('date', data1.date)
+       params.append('r_id', data1.r_id)
+       params.append('u_id', data1.u_id)
+       params.append('data', data1.data)
+       this.$http({
+         url: 'http://homja.top/Questionnaire/index.php/api/my/answer',
+         method: 'post',
+         data:params
+       })
+      .then( (response) => {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
       submit(){
         this.addQuestionItem()
-        this.final=JSON.stringify(this.requiredItem)
+        this.getfinal();
         this.submitok = this.validate()
         if (this.submitok) {
           this.dialogVisible = true
           this.info = '提交成功！'
+//          this.post(this.final)
         setTimeout(() => {
           this.dialogVisible = false
         }, 1500)
